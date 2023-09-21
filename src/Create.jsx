@@ -22,6 +22,7 @@ export default function Create() {
 
   return (
     <>
+    <h1>Add a user</h1>
     <form onSubmit={handleSubmit}>
       <div className="mb-2">
         <label htmlFor="name" className="form-label">Name:</label>
