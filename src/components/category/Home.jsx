@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react"
@@ -11,6 +12,17 @@ export default function Home() {
     .then(res => setCategories(res.data))
     .catch(err => console.log(err));
   });
+
+  const handleDelete = (id) => {
+    const confirm = window.confirm("Delete ?");
+    if(confirm){
+      axios.delete(import.meta.env.VITE_API_URL+'/api/category/'+id)
+      .then(response => {
+        location.reload(); 
+      })
+      .catch(err => console.log(err));
+    }
+  }
 
   return (
     <div className="container mt-4">
@@ -30,8 +42,9 @@ export default function Home() {
                   <tr key={i}>
                     <td>{category.name}</td>
                     <td>
-                        <Link className="btn btn-sm btn-info me-1">Read</Link>
-                        <Link className="btn btn-sm btn-primary me-1">Edit</Link>
+                        <Link to={`/category/detail/${category.id}`} className="btn btn-sm btn-info me-1">Read</Link>
+                        <Link to={`/category/update/${category.id}`} className="btn btn-sm btn-primary me-1">Edit</Link>
+                        <button onClick={ e => handleDelete(category.id) } className="btn btn-sm btn-danger">Delete</button>
                     </td>
                   </tr>
                 ))

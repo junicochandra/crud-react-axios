@@ -5,26 +5,26 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 export default function Detail() {
-  const [data, setData] = useState([]);
+  const [category, setCategory] = useState([]);
   const {id} = useParams();
 
   useEffect(() => {
-    axios.get('http://localhost:3000/users/'+id)
-    .then(res => setData(res.data))
+    axios.get(import.meta.env.VITE_API_URL+'/api/category/'+id)
+    .then(response => setCategory(response))
     .catch(err => console.log(err));
   }, []);
 
+  const { id: categoryId } = category?.data?.data?.result || {};
+  const { name: categoryName } = category?.data?.data?.result || {};
+  
   return (
     <>
-      <h1>Detail of users</h1>
+      <h1>Detail of category</h1>
       <div className="mb-2">
-        <strong>Name : {data.name}</strong>
+        <strong>Category Name : {categoryName}</strong>
       </div>
-      <div className="mb-2">
-        <strong>Email : {data.email}</strong>
-      </div>
-      <Link to={`/update/${id}`} className="btn btn-success">Edit</Link>
-      <Link to="/" className="btn btn-primary ms-3">Back</Link>
+      <Link to={`/category/update/${categoryId}`} className="btn btn-success">Edit</Link>
+      <Link to="/category" className="btn btn-primary ms-3">Back</Link>
     </>
   )
 }

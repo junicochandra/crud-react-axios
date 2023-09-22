@@ -5,7 +5,7 @@ import Update from './Update'
 import Detail from './Detail'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-export default function Category() {
+export default function App() {
   return (
     <>
       <BrowserRouter>
